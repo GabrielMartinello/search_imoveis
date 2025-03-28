@@ -32,7 +32,19 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
               itemBuilder: (context, index){
                 return Container(
                   padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
-                  child: Text(messages[index].message),
+                  child: Align(
+                    alignment: (messages[index].send == true ? Alignment.topLeft : Alignment.topRight),
+                    child: Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: (messages[index].send == true ? Colors.grey.shade200 : Colors.blue[200])
+                      ),
+                      padding: EdgeInsets.all(16),
+                      child: Text(messages[index].message, style: TextStyle(fontSize: 15),)
+
+                    ),
+                  ),
+
                 );
               },
             ),
