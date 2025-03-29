@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:search_imoveis/pages/auth.dart';
 import 'package:search_imoveis/pages/chat.dart';
 import 'package:search_imoveis/pages/home.dart';
 import 'package:search_imoveis/pages/perfil.dart';
@@ -20,11 +21,13 @@ class MyApp extends StatelessWidget {
       title: 'Flutter Demo',
       theme: lightMode,
       darkTheme: darkMode,
-      home: Home(),
+      home: LoginPage(),
       routes: {
+        '/home_page': (context) => Home(),
         '/chat_page': (context) => ChatDetailPage(),
         '/favoritos_page': (context) => ProdutosFavoritos(),
         '/perfil_page': (context) => PerfilPage(),
+        '/login_page': (context) => LoginPage(),
       }
     );
   }

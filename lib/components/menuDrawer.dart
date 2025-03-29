@@ -83,6 +83,7 @@ class MenuDrawer extends StatelessWidget {
                   title: const Text("L O G O U T"),
                   onTap: () {
                     Navigator.pop(context);
+                    Navigator.pushNamed(context, '/login_page');
                   }
               )
           ),
