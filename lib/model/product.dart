@@ -1,41 +1,23 @@
-import 'dart:core';
-
+import 'package:json_annotation/json_annotation.dart';
 import 'package:search_imoveis/model/company.dart';
+import 'company.dart';
+part 'product.g.dart';
 
-class Product{
+@JsonSerializable()
+class Product {
+  String description;
+  String price;
+  String discount;
+  Company company;
 
-  String _description;
-  String _price;
-  String _discount;
-  Company _company;
+  Product({
+    required this.description,
+    required this.price,
+    required this.discount,
+    required this.company,
+  });
 
-  Product(String description, String price, String discount, Company company):
-      _description = description,
-      _price = price,
-      _discount = discount,
-      _company = company;
+  factory Product.fromJson(Map<String, dynamic> json) => _$ProductFromJson(json);
 
-  Company get company => _company;
-
-  set company(Company value) {
-    _company = value;
-  }
-
-  String get discount => _discount;
-
-  set discount(String value) {
-    _discount = value;
-  }
-
-  String get price => _price;
-
-  set price(String value) {
-    _price = value;
-  }
-
-  String get description => _description;
-
-  set description(String value) {
-    _description = value;
-  }
+  Map<String, dynamic> toJson() => _$ProductToJson(this);
 }

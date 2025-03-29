@@ -1,42 +1,24 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'company.dart';
+part 'company.g.dart';
+
+@JsonSerializable()
 class Company {
-  String _name;
-  String _addressType;
-  String _addressName;
-  String _city;
-  String _uf;
+  String name;
+  String addressType;
+  String addressName;
+  String city;
+  String uf;
 
-  Company(this._name, this._addressType, this._addressName, this._city,
-      this._uf);
+  Company({
+    required this.name,
+    required this.addressType,
+    required this.addressName,
+    required this.city,
+    required this.uf,
+  });
 
-  String get uf => _uf;
+  factory Company.fromJson(Map<String, dynamic> json) => _$CompanyFromJson(json);
 
-  set uf(String value) {
-    _uf = value;
-  }
-
-  String get city => _city;
-
-  set city(String value) {
-    _city = value;
-  }
-
-  String get addressName => _addressName;
-
-  set addressName(String value) {
-    _addressName = value;
-  }
-
-  String get addressType => _addressType;
-
-  set addressType(String value) {
-    _addressType = value;
-  }
-
-  String get name => _name;
-
-  set name(String value) {
-    _name = value;
-  }
-
-
+  Map<String, dynamic> toJson() => _$CompanyToJson(this);
 }

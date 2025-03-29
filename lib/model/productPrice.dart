@@ -1,18 +1,15 @@
+import 'package:json_annotation/json_annotation.dart';
+import 'company.dart';
+part 'productPrice.g.dart';
+
+@JsonSerializable()
 class ProductPrice {
-  String _min;
-  String _max;
+  String min;
+  String max;
 
-  ProductPrice(this._min, this._max);
+  ProductPrice(this.min, this.max);
 
-  String get max => _max;
+  factory ProductPrice.fromJson(Map<String, dynamic> json) => _$ProductPriceFromJson(json);
 
-  set max(String value) {
-    _max = value;
-  }
-
-  String get min => _min;
-
-  set min(String value) {
-    _min = value;
-  }
+  Map<String, dynamic> toJson() => _$ProductPriceToJson(this);
 }

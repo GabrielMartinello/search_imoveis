@@ -9,26 +9,28 @@ class ChatDetailPage extends StatefulWidget{
 class _ChatDetailPageState extends State<ChatDetailPage> {
 
   List<ChatMessage> messages = [
-    ChatMessage(message: "Salve mano", send: false),
-    ChatMessage(message: "Tudo na paz?", send: false),
-    ChatMessage(message: "Saalve brroou, tudo na paz e ai?", send: true),
-    ChatMessage(message: "De boassaa meu querido, posso te pedir uma coisa?", send: false),
-    ChatMessage(message: "Pode sim mano, deu algo errado?", send: true),
+    ChatMessage(message: "Fala brou", send: false),
+    ChatMessage(message: "Aqui que vai integrar com o chat gepeto?", send: false),
+    ChatMessage(message: "Não vai ser fácil!", send: true),
+    ChatMessage(message: "Eu sei que não, mas se der vai ser daora!", send: false),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          title: Text("Teste")
+          title: Text("Assistente de vendas"),
+            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+            elevation: 0
         ),
+        backgroundColor: Theme.of(context).colorScheme.background,
         body: Stack(
           children: <Widget>[
             ListView.builder(
               itemCount: messages.length,
               shrinkWrap: true,
-              padding: EdgeInsets.only(top: 10,bottom: 10),
-              physics: NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.only(top: 10,bottom: 55),
+              physics: BouncingScrollPhysics(),
               itemBuilder: (context, index){
                 return Container(
                   padding: EdgeInsets.only(left: 16,right: 16,top: 10,bottom: 10),
@@ -40,15 +42,14 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                         color: (messages[index].send == true ? Colors.grey.shade200 : Colors.blue[200])
                       ),
                       padding: EdgeInsets.all(16),
-                      child: Text(messages[index].message, style: TextStyle(fontSize: 15),)
+                      child: Text(messages[index].message, style: TextStyle(fontSize: 15, color: Colors.black),)
 
                     ),
                   ),
 
                 );
               },
-            ),
-            Align( alignment: Alignment.bottomLeft,
+            ), Align( alignment: Alignment.bottomLeft,
           child: Container(
             padding: EdgeInsets.only(left: 10,bottom: 10,top: 10),
             height: 60,
@@ -61,7 +62,7 @@ class _ChatDetailPageState extends State<ChatDetailPage> {
                   child: TextField(
                     decoration: InputDecoration(
                         hintText: "Digite algo...",
-                        hintStyle: TextStyle(color: Colors.black54),
+                        hintStyle: TextStyle(color: Colors.black),
                         border: InputBorder.none
                     ),
                   ),

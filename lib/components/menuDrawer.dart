@@ -8,9 +8,9 @@ class MenuDrawer extends StatelessWidget {
       return Drawer(
         backgroundColor: Theme.of(context).colorScheme.background,
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
           Column(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               DrawerHeader(child: Icon(
                 Icons.favorite,
@@ -22,12 +22,12 @@ class MenuDrawer extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 25.0),
                   child: ListTile(
                       leading: Icon(
-                          Icons.home,
+                          Icons.person,
                           color: Theme.of(context).colorScheme.inversePrimary),
-                      title: const Text("H O M E"),
+                      title: const Text("P E R F I L"),
                       onTap: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, 'home');
+                        Navigator.pushNamed(context, '/perfil_page');
                       }
                   )
               ),
@@ -38,20 +38,47 @@ class MenuDrawer extends StatelessWidget {
                       leading: Icon(
                           Icons.home,
                           color: Theme.of(context).colorScheme.inversePrimary),
-                      title: const Text("C H A T S"),
+                      title: const Text("H O M E"),
                       onTap: () {
                         Navigator.pop(context);
-                        Navigator.pushNamed(context, 'chat_page');
+                        Navigator.pushNamed(context, '/home');
                       }
                   )
               ),
+
+              Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: ListTile(
+                      leading: Icon(
+                          Icons.message,
+                          color: Theme.of(context).colorScheme.inversePrimary),
+                      title: const Text("C H A T "),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/chat_page');
+                      }
+                  )
+              ),
+              Padding(
+                  padding: const EdgeInsets.only(left: 25.0),
+                  child: ListTile(
+                      leading: Icon(
+                          Icons.star,
+                          color: Theme.of(context).colorScheme.inversePrimary),
+                      title: const Text("F A V O R I T O S"),
+                      onTap: () {
+                        Navigator.pop(context);
+                        Navigator.pushNamed(context, '/favoritos_page');
+                      }
+                  )
+              )
             ],
           ),
           Padding(
               padding: const EdgeInsets.only(left: 25, bottom: 25),
               child: ListTile(
                   leading: Icon(
-                      Icons.home,
+                      Icons.logout,
                       color: Theme.of(context).colorScheme.inversePrimary),
                   title: const Text("L O G O U T"),
                   onTap: () {
@@ -59,8 +86,6 @@ class MenuDrawer extends StatelessWidget {
                   }
               )
           ),
-
-
         ],),
       );
   }
