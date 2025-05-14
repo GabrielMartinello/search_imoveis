@@ -52,12 +52,7 @@ class CadastroPageState extends State<CadastroPage> {
                   obscureText: true,
                   controller: passwordController
               ),
-              const SizedBox(height: 10),
-              Row(
-                children: [
-                  Text("Esqueceu sua senha?", style: TextStyle(color: Theme.of(context).colorScheme.secondary),)
-                ],
-              ),
+
               const SizedBox(height: 25),
 
               ButtonCustom(text: 'Cadastrar', onTap: login)
