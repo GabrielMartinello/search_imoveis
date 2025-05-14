@@ -1,6 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_imoveis/components/back_button.dart';
+import 'package:search_imoveis/dao/usuario_dao.dart';
+import 'package:search_imoveis/model/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilPage extends StatefulWidget {
 
@@ -8,7 +11,17 @@ class PerfilPage extends StatefulWidget {
   PerfilPageState createState() => PerfilPageState();
 
 }
+
 class PerfilPageState extends State<PerfilPage> {
+  String? emailUsuario;
+  String? nomeUsuario;
+
+  @override
+  void initState() {
+    super.initState();
+    obterNomeEmailUsuario();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -42,7 +55,7 @@ class PerfilPageState extends State<PerfilPage> {
 
             const SizedBox(height: 25),
             Text(
-                'seunomedeusuario',
+                nomeUsuario!,
                 style: const TextStyle(
                     fontSize: 24,
                     fontWeight: FontWeight.bold
@@ -50,7 +63,7 @@ class PerfilPageState extends State<PerfilPage> {
             ),
             const SizedBox(height: 10),
             Text(
-                'umemail@gmail.com',
+                emailUsuario!,
                 style: TextStyle(
                     color: Colors.grey[600],
                 )
@@ -62,4 +75,20 @@ class PerfilPageState extends State<PerfilPage> {
     );
   }
 
+  Future<void> obterNomeEmailUsuario() async {
+    final prefs = await SharedPreferences.getInstance();
+    final email = prefs.getString('email_usuario');
+
+    if (email != null) {
+      final dao = UsuarioDao();
+      final user = await dao.findUserByEmail(email);
+
+      if (user != null) {
+        setState(() {
+          emailUsuario = user.email;
+          nomeUsuario = user.nomeUsuario;
+        });
+      }
+    }
+  }
 }

@@ -4,6 +4,8 @@ part 'company.g.dart';
 
 @JsonSerializable()
 class Company {
+
+  int? id;
   String name;
   String addressType;
   String addressName;
@@ -21,4 +23,24 @@ class Company {
   factory Company.fromJson(Map<String, dynamic> json) => _$CompanyFromJson(json);
 
   Map<String, dynamic> toJson() => _$CompanyToJson(this);
+
+  Map<String, dynamic> toMap() {
+    return {
+      'name': name,
+      'addressType': addressType,
+      'addressName': addressName,
+      'city': city,
+      'uf': uf,
+    };
+  }
+
+  factory Company.fromMap(Map<String, dynamic> map) {
+    return Company(
+      name: map['name'],
+      addressType: map['addressType'],
+      addressName: map['addressName'],
+      city: map['city'],
+      uf: map['uf'],
+    );
+  }
 }

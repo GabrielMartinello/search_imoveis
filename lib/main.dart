@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:search_imoveis/database/database_provider.dart';
 import 'package:search_imoveis/pages/auth.dart';
+import 'package:search_imoveis/pages/cadastro.dart';
 import 'package:search_imoveis/pages/chat.dart';
 import 'package:search_imoveis/pages/home.dart';
 import 'package:search_imoveis/pages/perfil.dart';
@@ -7,9 +9,12 @@ import 'package:search_imoveis/pages/produtos.dart';
 import 'package:search_imoveis/theme/dark_mode.dart';
 import 'package:search_imoveis/theme/light_mode.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await DatabaseProvider.instance.database;
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -28,6 +33,7 @@ class MyApp extends StatelessWidget {
         '/favoritos_page': (context) => ProdutosFavoritos(),
         '/perfil_page': (context) => PerfilPage(),
         '/login_page': (context) => LoginPage(),
+        '/cadastro_page': (context) => CadastroPage(),
       }
     );
   }
