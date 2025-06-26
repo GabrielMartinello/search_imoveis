@@ -5,7 +5,7 @@ import 'package:search_imoveis/pages/cadastro.dart';
 import 'package:search_imoveis/pages/chat.dart';
 import 'package:search_imoveis/pages/home.dart';
 import 'package:search_imoveis/pages/perfil.dart';
-import 'package:search_imoveis/pages/produtos.dart';
+import 'package:search_imoveis/pages/produtos_favoritos.dart';
 import 'package:search_imoveis/theme/dark_mode.dart';
 import 'package:search_imoveis/theme/light_mode.dart';
 

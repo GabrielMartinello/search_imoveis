@@ -17,4 +17,11 @@ class CategoryResponse {
   set categories(List<Category> value) {
     _categories = value;
   }
+
+  factory CategoryResponse.fromJson(Map<String, dynamic> json) {
+    var list = json['categorias'] as List;
+    List<Category> categoriesList =
+    list.map((item) => Category.fromJson(item)).toList();
+    return CategoryResponse(categoriesList);
+  }
 }

@@ -1,29 +1,15 @@
-class Category{
+class Category {
+  final int id;
+  final int qtd;
+  final String desc;
 
-  String _id;
-  int _qtd;
-  String _desc;
+  Category({required this.id, required this.qtd, required this.desc});
 
-  Category(String id, int qtd, String desc):
-      _id = id,
-      _qtd = qtd,
-      _desc = desc;
-
-  String get desc => _desc;
-
-  set desc(String value) {
-    _desc = value;
-  }
-
-  int get qtd => _qtd;
-
-  set qtd(int value) {
-    _qtd = value;
-  }
-
-  String get id => _id;
-
-  set id(String value) {
-    _id = value;
+  factory Category.fromJson(Map<String, dynamic> json) {
+    return Category(
+      id: json['id'],
+      qtd: json['qtd'],
+      desc: json['desc'],
+    );
   }
 }

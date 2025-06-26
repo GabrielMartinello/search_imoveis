@@ -32,43 +32,50 @@ class DatabaseProvider {
 
   Future<void> _onCreate(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE ${UserModel.nomeTabela} (
-      ${UserModel.CAMPO_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${UserModel.CAMPO_NOME_USUARIO} TEXT NOT NULL,
-      ${UserModel.CAMPO_EMAIL} TEXT NOT NULL,
-      ${UserModel.CAMPO_SENHA} TEXT NOT NULL
-    );
+      CREATE TABLE ${UserModel.nomeTabela} (
+        ${UserModel.CAMPO_ID} INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${UserModel.CAMPO_NOME_USUARIO} TEXT NOT NULL,
+        ${UserModel.CAMPO_EMAIL} TEXT NOT NULL,
+        ${UserModel.CAMPO_SENHA} TEXT NOT NULL
+      );
+    ''');
 
-    CREATE TABLE ESTABELECIMENTO (
-      ID INTEGER PRIMARY KEY AUTOINCREMENT,
-      name TEXT NOT NULL,
-      addressType TEXT NOT NULL,
-      addressName TEXT NOT NULL,
-      city TEXT NOT NULL,
-      uf TEXT NOT NULL
-    );
+    await db.execute('''
+      CREATE TABLE ESTABELECIMENTO (
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        name TEXT NOT NULL,
+        addressType TEXT NOT NULL,
+        addressName TEXT NOT NULL,
+        city TEXT NOT NULL,
+        uf TEXT NOT NULL
+      );
+    ''');
 
+    await db.execute('''
     CREATE TABLE ${Product.nomeTabela} (
-      ID INTEGER PRIMARY KEY AUTOINCREMENT,
-      ${Product.CAMPO_DESCRIPTION} TEXT NOT NULL,
-      ${Product.CAMPO_DISCOUNT} REAL NOT NULL,
-      ${Product.CAMPO_PRICE} REAL NOT NULL,
-      ${Product.CAMPO_COMPANY} INTEGER NOT NULL,
-      ${Product.CAMPO_USUARIO} INTEGER NOT NULL,
-      FOREIGN KEY (${Product.CAMPO_COMPANY}) REFERENCES ESTABELECIMENTO(ID),
-      FOREIGN KEY (${Product.CAMPO_USUARIO}) REFERENCES ${UserModel.nomeTabela}(${UserModel.CAMPO_ID})
-    );
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        ${Product.CAMPO_DESCRIPTION} TEXT NOT NULL,
+        ${Product.CAMPO_DISCOUNT} REAL NOT NULL,
+        ${Product.CAMPO_PRICE} REAL NOT NULL,
+        ${Product.CAMPO_COMPANY} INTEGER NOT NULL,
+        ${Product.CAMPO_USUARIO} INTEGER NOT NULL,
+        FOREIGN KEY (${Product.CAMPO_COMPANY}) REFERENCES ESTABELECIMENTO(ID),
+        FOREIGN KEY (${Product.CAMPO_USUARIO}) REFERENCES ${UserModel.nomeTabela}(${UserModel.CAMPO_ID})
+      );
+    ''');
 
+    await db.execute('''
     CREATE TABLE CARRINHO (
-      ID INTEGER PRIMARY KEY AUTOINCREMENT,
-      usuario_id INTEGER NOT NULL,
-      produto_id INTEGER NOT NULL,
-      quantidade INTEGER NOT NULL,
-      FOREIGN KEY (usuario_id) REFERENCES ${UserModel.nomeTabela}(${UserModel.CAMPO_ID}),
-      FOREIGN KEY (produto_id) REFERENCES ${Product.nomeTabela}(ID)
-    );
-  ''');
+        ID INTEGER PRIMARY KEY AUTOINCREMENT,
+        usuario_id INTEGER NOT NULL,
+        produto_id INTEGER NOT NULL,
+        quantidade INTEGER NOT NULL,
+        FOREIGN KEY (usuario_id) REFERENCES ${UserModel.nomeTabela}(${UserModel.CAMPO_ID}),
+        FOREIGN KEY (produto_id) REFERENCES ${Product.nomeTabela}(ID)
+      );
+    ''');
   }
+
 
 
   Future<void> close() async {

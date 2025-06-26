@@ -5,8 +5,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:search_imoveis/components/back_button.dart';
+import 'package:search_imoveis/dao/product_dao.dart';
 import 'package:search_imoveis/model/product.dart';
-import 'package:search_imoveis/model/productResponse.dart';
 import 'package:search_imoveis/pages/DetalhesProdutoPage.dart';
 
 class ProdutosFavoritos extends StatefulWidget {
@@ -15,18 +15,31 @@ class ProdutosFavoritos extends StatefulWidget {
 }
 
 class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
-  String jsonData = "";
+  final ProductDao productDao = ProductDao();
+
+  List<Product> products = [];
 
   @override
   void initState() {
     super.initState();
-    loadJson('assets/mocks/productMock.json');
+    carregarProdutosFavoritos();
+  }
+
+  Future<void> carregarProdutosFavoritos() async {
+    List<Product> favoritos = await productDao.findAllWithCompany();
+    setState(() {
+      products = favoritos;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
-    Map<String, dynamic> json = jsonDecode(jsonData);
-    List<Product> products = ProductResponse.fromJson(json).product;
+    if (products.isEmpty) {
+      return Scaffold(
+        backgroundColor: Theme.of(context).colorScheme.background,
+        body: Center(child: CircularProgressIndicator()),
+      );
+    }
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -48,6 +61,7 @@ class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
               shrinkWrap: true,
               physics: BouncingScrollPhysics(),
               itemBuilder: (context, index) {
+                final product = products[index];
                 return Card(
                   elevation: 5,
                   margin: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
@@ -59,7 +73,7 @@ class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
                       Navigator.push(
                         context,
                         MaterialPageRoute(
-                          builder: (_) => DetalhesProdutoPage(produto: products[index]),
+                          builder: (_) => DetalhesProdutoPage(produto: product),
                         ),
                       );
                     },
@@ -72,7 +86,7 @@ class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  products[index].description,
+                                  product.description,
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.bold,
@@ -80,13 +94,18 @@ class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  'Preço: R\$ ${products[index].price}',
+                                  'Preço: R\$ ${product.price}',
                                   style: TextStyle(fontSize: 16, color: Colors.grey[700]),
                                 ),
                                 SizedBox(height: 5),
                                 Text(
-                                  'Desconto: ${products[index].discount}%',
+                                  'Desconto: ${product.discount}%',
                                   style: TextStyle(fontSize: 14, color: Colors.grey[600]),
+                                ),
+                                SizedBox(height: 10),
+                                Text(
+                                  'Empresa: ${product.company.name}',
+                                  style: TextStyle(fontSize: 14, fontStyle: FontStyle.italic),
                                 ),
                               ],
                             ),
@@ -107,7 +126,8 @@ class _ProdutosFavoritosState extends State<ProdutosFavoritos> {
   Future<void> loadJson(String path) async {
     String jsonString = await rootBundle.loadString(path);
     setState(() {
-      jsonData = jsonString;
+      //jsonData = jsonString;
     });
   }
 }
+

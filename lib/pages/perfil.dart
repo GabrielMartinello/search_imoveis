@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:search_imoveis/components/back_button.dart';
 import 'package:search_imoveis/dao/usuario_dao.dart';
-import 'package:search_imoveis/model/user.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class PerfilPage extends StatefulWidget {

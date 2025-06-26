@@ -1,5 +1,6 @@
 import 'package:search_imoveis/database/database_provider.dart';
 import 'package:search_imoveis/model/user.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class UsuarioDao {
   final dbProvider = DatabaseProvider.instance;
@@ -57,5 +58,22 @@ class UsuarioDao {
     } else {
       return null;
     }
+  }
+
+    Future<UserModel?> obterUsuario() async {
+    final prefs = await SharedPreferences.getInstance();
+    final email = prefs.getString('email_usuario');
+    UserModel? usuarioLogado;
+
+    if (email != null) {
+      final dao = UsuarioDao();
+      final user = await dao.findUserByEmail(email);
+
+      if (user != null) {
+        usuarioLogado = new UserModel(id: user.id, email: user.email, senha: user.senha, nomeUsuario: user.nomeUsuario);
+      }
+    }
+
+    return usuarioLogado;
   }
 }
